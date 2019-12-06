@@ -19,14 +19,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/resources/**", "/sparklr/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
     	    http.authorizeRequests()
-                .antMatchers("/sparklr/**","/facebook/**").hasRole("USER")
+                .antMatchers("/facebook/**").hasRole("USER")
                 .anyRequest().permitAll()
                 .and()
             .logout()
