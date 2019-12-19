@@ -26,9 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
     	    http.authorizeRequests()
-                .antMatchers("/facebook/**").hasRole("USER")
-                .anyRequest().permitAll()
-                .and()
+				.anyRequest()
+				.permitAll()
+				.and()
             .logout()
                 .logoutSuccessUrl("/login.jsp")
                 .permitAll()
