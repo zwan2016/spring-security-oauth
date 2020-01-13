@@ -19,7 +19,7 @@ import org.springframework.security.oauth.examples.tonr.SparklrService;
 import org.springframework.security.oauth.examples.tonr.converter.AccessTokenRequestConverter;
 import org.springframework.security.oauth.examples.tonr.impl.SparklrServiceImpl;
 import org.springframework.security.oauth.examples.tonr.mvc.FacebookController;
-import org.springframework.security.oauth.examples.tonr.mvc.OAuth2ExceptionAdvice;
+import org.springframework.security.oauth.examples.tonr.handler.OAuth2ExceptionHandler;
 import org.springframework.security.oauth.examples.tonr.mvc.SparklrController;
 import org.springframework.security.oauth.examples.tonr.mvc.SparklrRedirectController;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -84,8 +84,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public OAuth2ExceptionAdvice oAuth2ExceptionAdvice() {
-		return new OAuth2ExceptionAdvice();
+	public OAuth2ExceptionHandler oAuth2ExceptionAdvice() {
+		return new OAuth2ExceptionHandler();
 	}
 
 	@Bean
