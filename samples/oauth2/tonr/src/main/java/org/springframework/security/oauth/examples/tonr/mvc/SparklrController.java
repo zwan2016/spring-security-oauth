@@ -20,14 +20,11 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.oauth.examples.tonr.SparklrException;
 import org.springframework.security.oauth.examples.tonr.SparklrService;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthorizationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerMapping;
-import org.springframework.web.util.NestedServletException;
 
 /**
  * @author Ryan Heaton
@@ -78,27 +75,5 @@ public class SparklrController {
 	public void setSparklrService(SparklrService sparklrService) {
 		this.sparklrService = sparklrService;
 	}
-
-//	@ExceptionHandler(UserDeniedAuthorizationException.class)
-//	protected ResponseEntity<UserDeniedAuthorizationException> handleConflict(UserDeniedAuthorizationException ex) {
-//		System.out.println("*********1*************");
-//		String bodyOfResponse = "This should be application specific";
-//		return ResponseEntity.ok(ex);
-//	}
-//
-//	@ExceptionHandler(value =OAuth2Exception.class)
-//	protected ResponseEntity<OAuth2Exception> handleConflict(OAuth2Exception ex) {
-//		System.out.println("*********2*************");
-//		String bodyOfResponse = "This should be application specific";
-//		return ResponseEntity.ok(ex);
-//	}
-//
-//
-//	@ExceptionHandler(NestedServletException.class)
-//	protected ResponseEntity<NestedServletException> handleConflict(NestedServletException ex) {
-//		System.out.println("*********3*************");
-//		String bodyOfResponse = "This should be application specific";
-//		return ResponseEntity.ok(ex);
-//	}
 
 }

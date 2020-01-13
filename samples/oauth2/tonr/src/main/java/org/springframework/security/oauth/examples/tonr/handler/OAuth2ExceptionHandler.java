@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthoriza
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by zwan on 12/18/19.
@@ -14,10 +15,10 @@ import org.springframework.web.context.request.WebRequest;
 public class OAuth2ExceptionHandler {
 
     @ExceptionHandler(UserDeniedAuthorizationException.class)
-    protected ResponseEntity<UserDeniedAuthorizationException> handleConflict(UserDeniedAuthorizationException ex, WebRequest request) {
+    protected ModelAndView handleConflict(UserDeniedAuthorizationException ex, WebRequest request) {
         System.out.println("*********1*************");
         String bodyOfResponse = "This should be application specific";
-        return ResponseEntity.ok(null);
+        return new ModelAndView("oauth_error");
     }
 
     @ExceptionHandler(value =OAuth2Exception.class)
