@@ -12,10 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.oauth.examples.sparklr.PhotoInfo;
 import org.springframework.security.oauth.examples.sparklr.PhotoService;
 import org.springframework.security.oauth.examples.sparklr.impl.PhotoServiceImpl;
-import org.springframework.security.oauth.examples.sparklr.mvc.AccessConfirmationController;
-import org.springframework.security.oauth.examples.sparklr.mvc.AdminController;
-import org.springframework.security.oauth.examples.sparklr.mvc.PhotoController;
-import org.springframework.security.oauth.examples.sparklr.mvc.PhotoServiceUserController;
+import org.springframework.security.oauth.examples.sparklr.mvc.*;
 import org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
@@ -70,6 +67,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		PhotoController photoController = new PhotoController();
 		photoController.setPhotoService(photoService);
 		return photoController;
+	}
+
+	@Bean
+	public UserController userController() {
+		return new UserController();
 	}
 
 	@Bean
