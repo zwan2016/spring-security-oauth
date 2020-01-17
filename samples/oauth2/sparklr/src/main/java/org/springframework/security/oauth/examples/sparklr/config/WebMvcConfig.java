@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth.examples.sparklr.PhotoInfo;
 import org.springframework.security.oauth.examples.sparklr.PhotoService;
@@ -30,6 +32,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Configuration
 @EnableWebMvc
+@ComponentScan(basePackages = "org.springframework.security.oauth.examples.sparklr")
+@EnableJpaRepositories(basePackages = "org.springframework.security.oauth.examples.sparklr")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -69,10 +73,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return photoController;
 	}
 
-	@Bean
-	public UserController userController() {
-		return new UserController();
-	}
+//	@Bean
+//	public UserController userController() {
+//		return new UserController();
+//	}
 
 	@Bean
 	public AccessConfirmationController accessConfirmationController(ClientDetailsService clientDetailsService,
