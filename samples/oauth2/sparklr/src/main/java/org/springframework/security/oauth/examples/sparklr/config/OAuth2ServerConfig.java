@@ -27,6 +27,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -94,6 +95,9 @@ public class OAuth2ServerConfig {
 	protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
 		@Autowired
+		private PasswordEncoder passwordEncoder;
+
+		@Autowired
 		private TokenStore tokenStore;
 
 		@Autowired
@@ -109,13 +113,14 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
+			String secret = passwordEncoder.encode("secret");
 			// @formatter:off
 			clients.inMemory().withClient("tonr")
 			 			.resourceIds(SPARKLR_RESOURCE_ID)
 			 			.authorizedGrantTypes("authorization_code", "implicit")
 			 			.authorities("ROLE_CLIENT")
 			 			.scopes("read", "write")
-			 			.secret("secret")
+			 			.secret(secret)
 						.redirectUris("http://localhost:8080/tonr2/sparklr/photos")
 			 		.and()
 			 		.withClient("tonr-with-redirect")
@@ -123,7 +128,7 @@ public class OAuth2ServerConfig {
 			 			.authorizedGrantTypes("authorization_code", "implicit")
 			 			.authorities("ROLE_CLIENT")
 			 			.scopes("read", "write")
-			 			.secret("secret")
+			 			.secret(secret)
 			 			.redirectUris(tonrRedirectUri)
 			 		.and()
 		 		    .withClient("my-client-with-registered-redirect")
@@ -143,7 +148,7 @@ public class OAuth2ServerConfig {
  			            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
  			            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
  			            .scopes("read", "write", "trust")
- 			            .secret("somesecret")
+ 			            .secret(passwordEncoder.encode("somesecret"))
 	 		        .and()
  		            .withClient("my-less-trusted-client")
 			            .authorizedGrantTypes("authorization_code", "implicit")
