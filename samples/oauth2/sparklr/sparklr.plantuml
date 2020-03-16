@@ -1,0 +1,173 @@
+@startuml
+
+title __SPARKLR2's Class Diagram__\n
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    class org.springframework.security.oauth.examples.sparklr.PhotoInfo {
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    interface org.springframework.security.oauth.examples.sparklr.PhotoService {
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    class org.springframework.security.oauth.examples.sparklr.PhotoServiceUser {
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.MethodSecurityConfig {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.PersistenceJPAConfig {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.ServletInitializer {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.WebMvcConfig {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace domain {
+      class org.springframework.security.oauth.examples.sparklr.domain.User {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace impl {
+      class org.springframework.security.oauth.examples.sparklr.impl.CustomUserDetailService {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace impl {
+      class org.springframework.security.oauth.examples.sparklr.impl.PhotoServiceImpl {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.AccessConfirmationController {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.AdminController {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.PhotoController {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.PhotoServiceUserController {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.UserController {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace oauth {
+      class org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace repository {
+      interface org.springframework.security.oauth.examples.sparklr.repository.UserRepository {
+      }
+    }
+  }
+  
+
+  org.springframework.security.oauth.examples.sparklr.config.MethodSecurityConfig -up-|> org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration
+  org.springframework.security.oauth.examples.sparklr.config.MethodSecurityConfig o-- org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration : securityConfig
+  org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration -up-|> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+  org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration o-- org.springframework.security.oauth.examples.sparklr.impl.CustomUserDetailService : customUserDetailService
+  org.springframework.security.oauth.examples.sparklr.config.ServletInitializer -up-|> org.springframework.web.servlet.support.AbstractDispatcherServletInitializer
+  org.springframework.security.oauth.examples.sparklr.config.WebMvcConfig -up-|> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+  org.springframework.security.oauth.examples.sparklr.impl.CustomUserDetailService .up.|> org.springframework.security.core.userdetails.UserDetailsService
+  org.springframework.security.oauth.examples.sparklr.impl.CustomUserDetailService o-- org.springframework.security.oauth.examples.sparklr.repository.UserRepository : userRepository
+  org.springframework.security.oauth.examples.sparklr.impl.PhotoServiceImpl .up.|> org.springframework.security.oauth.examples.sparklr.PhotoService
+  org.springframework.security.oauth.examples.sparklr.mvc.AdminController o-- org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler : userApprovalHandler
+  org.springframework.security.oauth.examples.sparklr.mvc.PhotoController o-- org.springframework.security.oauth.examples.sparklr.PhotoService : photoService
+  org.springframework.security.oauth.examples.sparklr.mvc.UserController o-- org.springframework.security.oauth.examples.sparklr.repository.UserRepository : userRepository
+  org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler -up-|> org.springframework.security.oauth2.provider.approval.ApprovalStoreUserApprovalHandler
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

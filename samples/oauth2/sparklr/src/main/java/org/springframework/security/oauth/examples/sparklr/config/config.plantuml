@@ -1,0 +1,140 @@
+@startuml
+
+title __CONFIG's Class Diagram__\n
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.MethodSecurityConfig {
+          # createExpressionHandler()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig {
+          {static} - SPARKLR_RESOURCE_ID : String
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.AuthorizationServerConfiguration {
+          - authenticationManager : AuthenticationManager
+          - passwordEncoder : PasswordEncoder
+          - tokenStore : TokenStore
+          - tonrRedirectUri : String
+          - userApprovalHandler : UserApprovalHandler
+          + configure()
+          + configure()
+          + configure()
+          + tokenStore()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.ResourceServerConfiguration {
+          + configure()
+          + configure()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.Stuff {
+          - clientDetailsService : ClientDetailsService
+          - tokenStore : TokenStore
+          + approvalStore()
+          + userApprovalHandler()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.PersistenceJPAConfig {
+          + dataSource()
+          + entityManagerFactory()
+          + exceptionTranslation()
+          + transactionManager()
+          ~ addtionalProperties()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration {
+          - dataSource : DataSource
+          - passwordEncoder : PasswordEncoder
+          + authenticationManagerBean()
+          + configure()
+          + globalUserDetails()
+          # configure()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.ServletInitializer {
+          + onStartup()
+          # createRootApplicationContext()
+          # createServletApplicationContext()
+          # getServletMappings()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace config {
+      class org.springframework.security.oauth.examples.sparklr.config.WebMvcConfig {
+          + accessConfirmationController()
+          + adminController()
+          + configureDefaultServletHandling()
+          + contentViewResolver()
+          + jsonMapper()
+          + passwordEncoder()
+          + photoController()
+          + photoServiceUserController()
+          + photoServices()
+          {static} + propertySourcesPlaceholderConfigurer()
+          - createPhoto()
+      }
+    }
+  }
+  
+
+  org.springframework.security.oauth.examples.sparklr.config.MethodSecurityConfig -up-|> org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration
+  org.springframework.security.oauth.examples.sparklr.config.MethodSecurityConfig o-- org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration : securityConfig
+  org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig +-down- org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.AuthorizationServerConfiguration
+  org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig +-down- org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.ResourceServerConfiguration
+  org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig +-down- org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.Stuff
+  org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.AuthorizationServerConfiguration -up-|> org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter
+  org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.ResourceServerConfiguration -up-|> org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
+  org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration -up-|> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+  org.springframework.security.oauth.examples.sparklr.config.SecurityConfiguration o-- org.springframework.security.oauth.examples.sparklr.impl.CustomUserDetailService : customUserDetailService
+  org.springframework.security.oauth.examples.sparklr.config.ServletInitializer -up-|> org.springframework.web.servlet.support.AbstractDispatcherServletInitializer
+  org.springframework.security.oauth.examples.sparklr.config.WebMvcConfig -up-|> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

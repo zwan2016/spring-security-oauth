@@ -17,7 +17,7 @@
 
 	<div class="container">
 
-		<h1>授权服务器</h1>
+		<h1>授权服务器sparklr</h1>
 		<p>您当前处在授权服务器sparklr注册页面</p>
 
         <div class="form-horizontal">
