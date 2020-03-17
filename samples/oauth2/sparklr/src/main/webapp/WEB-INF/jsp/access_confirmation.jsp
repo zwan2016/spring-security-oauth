@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page
 	import="org.springframework.security.core.AuthenticationException"%>
 <%@ page
@@ -24,7 +25,7 @@
 <body>
 
 	<div class="container">
-		<h1>Sparklr</h1>
+		<h1>授权服务器sparklr</h1>
 
 		<%
 			if (session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) != null
