@@ -31,14 +31,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("marissa").password("{noop}koala").roles("USER").and().withUser("paul")
-//                .password("{noop}emu").roles("USER");
         auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/webjars/**", "/images/**", "/oauth/uncache_approvals", "/oauth/cache_approvals", "/register.jsp", "/register");
+        web.ignoring().antMatchers("/webjars/**", "/images/**", "/oauth/uncache_approvals", "/oauth/cache_approvals", "/register.jsp", "/register",
+                "/apply.jsp", "/apply");
     }
 
     @Override
@@ -58,7 +57,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
                 .accessDeniedPage("/login.jsp?authorization_error=true")
                 .and()
-            // TODO: put CSRF protection back into this endpoint
             .csrf()
                 .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
                 .disable()

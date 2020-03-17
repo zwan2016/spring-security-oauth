@@ -70,6 +70,14 @@ title __SPARKLR2's Class Diagram__\n
 
   namespace org.springframework.security.oauth.examples.sparklr {
     namespace domain {
+      class org.springframework.security.oauth.examples.sparklr.domain.Client {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace domain {
       class org.springframework.security.oauth.examples.sparklr.domain.User {
       }
     }
@@ -110,6 +118,14 @@ title __SPARKLR2's Class Diagram__\n
 
   namespace org.springframework.security.oauth.examples.sparklr {
     namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.ClientController {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
       class org.springframework.security.oauth.examples.sparklr.mvc.PhotoController {
       }
     }
@@ -142,6 +158,14 @@ title __SPARKLR2's Class Diagram__\n
 
   namespace org.springframework.security.oauth.examples.sparklr {
     namespace repository {
+      interface org.springframework.security.oauth.examples.sparklr.repository.ClientRepository {
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace repository {
       interface org.springframework.security.oauth.examples.sparklr.repository.UserRepository {
       }
     }
@@ -158,6 +182,7 @@ title __SPARKLR2's Class Diagram__\n
   org.springframework.security.oauth.examples.sparklr.impl.CustomUserDetailService o-- org.springframework.security.oauth.examples.sparklr.repository.UserRepository : userRepository
   org.springframework.security.oauth.examples.sparklr.impl.PhotoServiceImpl .up.|> org.springframework.security.oauth.examples.sparklr.PhotoService
   org.springframework.security.oauth.examples.sparklr.mvc.AdminController o-- org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler : userApprovalHandler
+  org.springframework.security.oauth.examples.sparklr.mvc.ClientController o-- org.springframework.security.oauth.examples.sparklr.repository.ClientRepository : clientRepository
   org.springframework.security.oauth.examples.sparklr.mvc.PhotoController o-- org.springframework.security.oauth.examples.sparklr.PhotoService : photoService
   org.springframework.security.oauth.examples.sparklr.mvc.UserController o-- org.springframework.security.oauth.examples.sparklr.repository.UserRepository : userRepository
   org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler -up-|> org.springframework.security.oauth2.provider.approval.ApprovalStoreUserApprovalHandler

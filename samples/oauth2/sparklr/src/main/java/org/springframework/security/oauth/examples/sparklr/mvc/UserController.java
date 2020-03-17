@@ -7,7 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth.examples.sparklr.PhotoInfo;
 import org.springframework.security.oauth.examples.sparklr.domain.User;
 import org.springframework.security.oauth.examples.sparklr.repository.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.Collection;
-import java.util.Iterator;
-
 
 /**
  * Created by zwan on 1/13/20.

@@ -4,6 +4,26 @@ title __DOMAIN's Class Diagram__\n
 
   namespace org.springframework.security.oauth.examples.sparklr {
     namespace domain {
+      class org.springframework.security.oauth.examples.sparklr.domain.Client {
+          - clientDomain : String
+          - clientName : String
+          - email : String
+          - id : Long
+          + getClientDomain()
+          + getClientName()
+          + getEmail()
+          + getId()
+          + setClientDomain()
+          + setClientName()
+          + setEmail()
+          + setId()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace domain {
       class org.springframework.security.oauth.examples.sparklr.domain.User {
           - email : String
           - firstName : String

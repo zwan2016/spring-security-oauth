@@ -4,6 +4,15 @@ title __REPOSITORY's Class Diagram__\n
 
   namespace org.springframework.security.oauth.examples.sparklr {
     namespace repository {
+      interface org.springframework.security.oauth.examples.sparklr.repository.ClientRepository {
+          {abstract} + findByClientName()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace repository {
       interface org.springframework.security.oauth.examples.sparklr.repository.UserRepository {
           {abstract} + findByUsername()
       }
