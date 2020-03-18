@@ -46,6 +46,15 @@ public class UserController {
 		return new ResponseEntity<String>(objectMapper.writeValueAsString(user), headers, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/user", params = "format=string")
+	public ResponseEntity<String> getUserOAuth(Principal principal) throws JsonProcessingException {
+		User user = userRepository.findByUsername(principal.getName());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", "text/plain");
+		System.out.println(objectMapper.writeValueAsString(user));
+		return new ResponseEntity<String>(objectMapper.writeValueAsString(user), headers, HttpStatus.OK);
+	}
+
 	@PostMapping("/update")
 	public ModelAndView updateUser(@ModelAttribute User user, Principal principal)
 	{

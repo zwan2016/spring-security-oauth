@@ -18,11 +18,7 @@ package org.springframework.security.oauth.examples.sparklr.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,8 +38,11 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * @author Rob Winch
@@ -57,10 +56,29 @@ public class OAuth2ServerConfig {
 	@Configuration
 	@EnableResourceServer
 	protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+		@Bean
+		public TokenStore tokenStore() {
+			return new JwtTokenStore(accessTokenConverter());
+		}
 
+		@Bean
+		public JwtAccessTokenConverter accessTokenConverter() {
+			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+			converter.setSigningKey("123");
+			return converter;
+		}
+
+		@Bean
+		@Primary
+		public DefaultTokenServices tokenServices() {
+			DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+			defaultTokenServices.setTokenStore(tokenStore());
+			return defaultTokenServices;
+		}
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources) {
-			resources.resourceId(SPARKLR_RESOURCE_ID).stateless(false);
+			resources.tokenServices(tokenServices())
+					.resourceId(SPARKLR_RESOURCE_ID).stateless(false);
 		}
 
 		@Override
@@ -71,9 +89,10 @@ public class OAuth2ServerConfig {
 				// session creation to be allowed (it's disabled by default in 2.0.6)
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 			.and()
-				.requestMatchers().antMatchers("/photos/**", "/oauth/users/**", "/oauth/clients/**","/me")
+				.requestMatchers().antMatchers("/photos/**", "/oauth/users/**", "/oauth/clients/**","/me","/user")
 			.and()
 				.authorizeRequests()
+					.antMatchers("/user").access("#oauth2.hasScope('read')")
 					.antMatchers("/me").access("#oauth2.hasScope('read')")					
 					.antMatchers("/photos").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))")                                        
 					.antMatchers("/photos/trusted/**").access("#oauth2.hasScope('trust')")
@@ -97,8 +116,26 @@ public class OAuth2ServerConfig {
 		@Autowired
 		private PasswordEncoder passwordEncoder;
 
-		@Autowired
-		private TokenStore tokenStore;
+		@Bean
+		public TokenStore tokenStore(){
+			return new JwtTokenStore(accessTokenConverter());
+		}
+
+		@Bean
+		public JwtAccessTokenConverter accessTokenConverter() {
+			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+			converter.setSigningKey("123");
+			return converter;
+		}
+
+		@Bean
+		@Primary
+		public DefaultTokenServices tokenServices() {
+			DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+			defaultTokenServices.setTokenStore(tokenStore());
+			defaultTokenServices.setSupportRefreshToken(true);
+			return defaultTokenServices;
+		}
 
 		@Autowired
 		private UserApprovalHandler userApprovalHandler;
@@ -121,7 +158,7 @@ public class OAuth2ServerConfig {
 			 			.authorities("ROLE_CLIENT")
 			 			.scopes("read", "write")
 			 			.secret(secret)
-						.redirectUris("http://localhost:8080/tonr2/sparklr/photos")
+						.redirectUris("http://localhost:8080/tonr2/sparklr/user")
 			 		.and()
 			 		.withClient("tonr-with-redirect")
 			 			.resourceIds(SPARKLR_RESOURCE_ID)
@@ -163,14 +200,12 @@ public class OAuth2ServerConfig {
 			// @formatter:on
 		}
 
-		@Bean
-		public TokenStore tokenStore() {
-			return new InMemoryTokenStore();
-		}
 
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-			endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
+			endpoints.tokenStore(tokenStore())
+					.accessTokenConverter(accessTokenConverter())
+					.userApprovalHandler(userApprovalHandler)
 					.authenticationManager(authenticationManager);
 		}
 

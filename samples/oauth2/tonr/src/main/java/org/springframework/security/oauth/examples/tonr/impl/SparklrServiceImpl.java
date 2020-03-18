@@ -1,62 +1,32 @@
 package org.springframework.security.oauth.examples.tonr.impl;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.security.oauth.examples.tonr.SparklrException;
 import org.springframework.security.oauth.examples.tonr.SparklrService;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.web.client.RestOperations;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * @author Ryan Heaton
  */
 public class SparklrServiceImpl implements SparklrService {
 
-	private String sparklrPhotoListURL;
+	private String sparklrUserURL;
 	private String sparklrTrustedMessageURL;
 	private String sparklrPhotoURLPattern;
 	private RestOperations sparklrRestTemplate;
 	private RestOperations trustedClientRestTemplate;
 
-	public List<String> getSparklrPhotoIds() throws SparklrException {
-		try {
-			InputStream photosXML = new ByteArrayInputStream(sparklrRestTemplate.getForObject(
-					URI.create(sparklrPhotoListURL), byte[].class));
-
-			final List<String> photoIds = new ArrayList<String>();
-			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-			parserFactory.setValidating(false);
-			parserFactory.setXIncludeAware(false);
-			parserFactory.setNamespaceAware(false);
-			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse(photosXML, new DefaultHandler() {
-				@Override
-				public void startElement(String uri, String localName, String qName, Attributes attributes)
-						throws SAXException {
-					if ("photo".equals(qName)) {
-						photoIds.add(attributes.getValue("id"));
-					}
-				}
-			});
-			return photoIds;
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		} catch (SAXException e) {
-			throw new IllegalStateException(e);
-		} catch (ParserConfigurationException e) {
-			throw new IllegalStateException(e);
-		}
+	public JsonObject getSparklrUser() throws SparklrException {
+		String userJson = sparklrRestTemplate.getForObject(URI.create(sparklrUserURL), String.class);
+		OAuth2RestTemplate o = (OAuth2RestTemplate)sparklrRestTemplate;
+		JsonObject jsonObject = new JsonParser().parse(userJson).getAsJsonObject();
+		return jsonObject;
 	}
 
 	public InputStream loadSparklrPhoto(String id) throws SparklrException {
@@ -72,8 +42,8 @@ public class SparklrServiceImpl implements SparklrService {
 		this.sparklrPhotoURLPattern = sparklrPhotoURLPattern;
 	}
 
-	public void setSparklrPhotoListURL(String sparklrPhotoListURL) {
-		this.sparklrPhotoListURL = sparklrPhotoListURL;
+	public void setSparklrUserURL(String sparklrPhotoListURL) {
+		this.sparklrUserURL = sparklrPhotoListURL;
 	}
 	
 	public void setSparklrTrustedMessageURL(String sparklrTrustedMessageURL) {

@@ -105,14 +105,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public SparklrServiceImpl sparklrService(@Value("${sparklrPhotoListURL}")
-	String sparklrPhotoListURL, @Value("${sparklrPhotoURLPattern}")
+	public SparklrServiceImpl sparklrService(@Value("${sparklrUserURL}")
+	String sparklrUserURL, @Value("${sparklrPhotoURLPattern}")
 	String sparklrPhotoURLPattern, @Value("${sparklrTrustedMessageURL}")
 	String sparklrTrustedMessageURL, @Qualifier("sparklrRestTemplate")
 	RestOperations sparklrRestTemplate, @Qualifier("trustedClientRestTemplate")
 	RestOperations trustedClientRestTemplate) {
 		SparklrServiceImpl sparklrService = new SparklrServiceImpl();
-		sparklrService.setSparklrPhotoListURL(sparklrPhotoListURL);
+		sparklrService.setSparklrUserURL(sparklrUserURL);
 		sparklrService.setSparklrPhotoURLPattern(sparklrPhotoURLPattern);
 		sparklrService.setSparklrTrustedMessageURL(sparklrTrustedMessageURL);
 		sparklrService.setSparklrRestTemplate(sparklrRestTemplate);
@@ -121,14 +121,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public SparklrServiceImpl sparklrRedirectService(@Value("${sparklrPhotoListURL}")
-	String sparklrPhotoListURL, @Value("${sparklrPhotoURLPattern}")
+	public SparklrServiceImpl sparklrRedirectService(@Value("${sparklrUserURL}")
+	String sparklrUserURL, @Value("${sparklrPhotoURLPattern}")
 	String sparklrPhotoURLPattern, @Value("${sparklrTrustedMessageURL}")
 	String sparklrTrustedMessageURL, @Qualifier("sparklrRedirectRestTemplate")
 	RestOperations sparklrRestTemplate, @Qualifier("trustedClientRestTemplate")
 	RestOperations trustedClientRestTemplate) {
 		SparklrServiceImpl sparklrService = new SparklrServiceImpl();
-		sparklrService.setSparklrPhotoListURL(sparklrPhotoListURL);
+		sparklrService.setSparklrUserURL(sparklrUserURL);
 		sparklrService.setSparklrPhotoURLPattern(sparklrPhotoURLPattern);
 		sparklrService.setSparklrTrustedMessageURL(sparklrTrustedMessageURL);
 		sparklrService.setSparklrRestTemplate(sparklrRestTemplate);

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="authz"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,36 +25,23 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand"
-				href="https://github.com/spring-projects/spring-security-oauth">
+				href="${base}index.jsp">
 				Tonr</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${base}index.jsp" class="selected">home</a></li>
-				<authz:authorize access="!hasRole('ROLE_USER')">
-					<li><a href="${base}login.jsp">login</a></li>
-				</authz:authorize>
-				<li><a href="${base}sparklr/photos">sparklr pics</a></li>
-				<li><a href="${base}facebook/info">facebook friends</a></li>
+				<li><a href="${base}sparklr/user">sparklr user profile</a></li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="container">
 
-		<h1>Welcome to Tonr!</h1>
+		<h1>客户端tonr</h1>
 
 		<p>
-			This is a website that will allow you to print your photos that
-			you've uploaded to <a href="http://localhost:8080/sparklr2/">Sparklr</a>!
-			And since this site uses <a href="https://oauth.net">OAuth</a> to
-			access your photos, we will never ask you for your Sparklr
-			credentials.
+			本网站可以查看你在sparklr站点的用户信息并对其进行修改，请使用sparklr账户进行登录并对本网站进行授权。
 		</p>
-
-		<p>Tonr.com has only two users: "marissa" and "sam". The password
-			for "marissa" is password is "wombat" and for "sam" is password is
-			"kangaroo".</p>
 
 		<authz:authorize access="!hasRole('ROLE_USER')">
 			<p>
@@ -62,7 +50,7 @@
 		</authz:authorize>
 		<authz:authorize access="hasRole('ROLE_USER')">
 			<p>
-				<a href="<c:url value="/sparklr/photos"/>">View my Sparklr
+				<a href="<c:url value="/sparklr/user"/>">View my Sparklr
 					photos</a>
 			</p>
 			<p>

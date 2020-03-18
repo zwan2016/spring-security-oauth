@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="authz"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,30 +25,52 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand"
-				href="https://github.com/spring-projects/spring-security-oauth">
+				href="${base}index.jsp">
 				Tonr</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${base}index.jsp">home</a></li>
-				<authz:authorize access="!hasRole('ROLE_USER')">
-					<li><a href="${base}login.jsp">login</a></li>
-				</authz:authorize>
-				<li><a href="${base}sparklr/photos" class="selected">sparklr
-						pics</a></li>
-				<li><a href="${base}facebook/info">facebook friends</a></li>
+				<li><a href="${base}sparklr/user" class="selected">sparklr user profile</a></li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="container">
-		<h1>Your Sparklr Photos</h1>
-		<ul class="list-unstyled">
-			<c:forEach var="sparklrPhotoId" items="${photoIds}">
-				<li><img
-					src="${base}sparklr/photos/${sparklrPhotoId}" /></li>
-			</c:forEach>
-		</ul>
+		<h1>客户端tonr</h1>
+		<div class="form-horizontal">
+            <form action="<c:url value="/placeholder"/>" method="post" role="form">
+                <fieldset>
+                    <legend>
+                        <h2>您在sparklr上的用户简介</h2>
+                    </legend>
+                    <div class="form-group">
+                        <label for="username">Username:</label> <input id="username"
+                            class="form-control" type='text' name='username' value='${username}' readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label> <input id="email"
+                            class="form-control" type='text' name='email' value='${email}' readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input id="password"
+                            class="form-control" type='hidden' name='password' value='placeholder'/>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label> <input id="firstName"
+                            class="form-control" type='text' name='firstName' value='${firstName}' readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label> <input id="lastName"
+                            class="form-control" type='text' name='lastName' value='${lastName}' readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="funFact">Fun Fact:</label> <input id="funFact"
+                            class="form-control" type='text' name='funFact' value='${funFact}' readonly/>
+                    </div>
+                   <!-- <button class="btn btn-primary" type="submit">Update</button> -->
+                </fieldset>
+            </form>
+        </div>
 	</div>
 </body>
 </html>

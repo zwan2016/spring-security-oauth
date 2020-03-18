@@ -1,5 +1,7 @@
 package org.springframework.security.oauth.examples.tonr;
 
+import com.google.gson.JsonObject;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public interface SparklrService {
 	 * 
 	 * @return The list of photo ids for the current user.
 	 */
-	List<String> getSparklrPhotoIds() throws SparklrException;
+	JsonObject getSparklrUser() throws SparklrException;
 
 	/**
 	 * Loads the Sparklr photo for the current user.

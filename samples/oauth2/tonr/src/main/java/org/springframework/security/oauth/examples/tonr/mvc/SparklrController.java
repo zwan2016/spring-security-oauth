@@ -2,6 +2,7 @@ package org.springframework.security.oauth.examples.tonr.mvc;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -12,6 +13,7 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.servlet.UnavailableException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.JsonObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,9 +24,12 @@ import org.springframework.security.oauth.examples.tonr.SparklrService;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Ryan Heaton
@@ -35,9 +40,14 @@ public class SparklrController {
 
 	private SparklrService sparklrService;
 
-	@RequestMapping("/sparklr/photos")
+	@RequestMapping("/sparklr/user")
 	public String photos(Model model) throws SparklrException, OAuth2Exception {
-		model.addAttribute("photoIds", sparklrService.getSparklrPhotoIds());
+		JsonObject user = sparklrService.getSparklrUser();
+		model.addAttribute("username", user.get("username").getAsString());
+		model.addAttribute("email", user.get("email").getAsString());
+		model.addAttribute("firstName", user.get("firstName").getAsString());
+		model.addAttribute("lastName", user.get("lastName").getAsString());
+		model.addAttribute("funFact", user.get("funFact").getAsString());
 		return "sparklr";
 	}
 

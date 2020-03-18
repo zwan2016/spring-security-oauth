@@ -30,17 +30,17 @@ public class SparklrRedirectController {
 
 	private SparklrService sparklrService;
 
-	@RequestMapping("/sparklr/redirect")
-	public String photos(Model model) throws Exception {
-		model.addAttribute("photoIds", sparklrService.getSparklrPhotoIds());
-		model.addAttribute("path", "redirect");
-		return "sparklr";
-	}
+//	@RequestMapping("/sparklr/redirect")
+//	public String photos(Model model) throws Exception {
+//		model.addAttribute("photoIds", sparklrService.getSparklrPhotoIds());
+//		model.addAttribute("path", "redirect");
+//		return "sparklr";
+//	}
 
-	@RequestMapping("/sparklr/trigger")
-	public String trigger(Model model) throws Exception {
-		return photos(model);
-	}
+//	@RequestMapping("/sparklr/trigger")
+//	public String trigger(Model model) throws Exception {
+//		return photos(model);
+//	}
 
 	@RequestMapping("/sparklr/redirect/{id}")
 	public ResponseEntity<BufferedImage> photo(@PathVariable String id) throws Exception {
