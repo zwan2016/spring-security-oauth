@@ -79,6 +79,7 @@
                                 $("#lastName").val(data.lastName);
                                 $("#funFact").val(data.funFact);
                             });
+                    console.log(data);
                 </script>
             </div>
 		</authz:authorize>

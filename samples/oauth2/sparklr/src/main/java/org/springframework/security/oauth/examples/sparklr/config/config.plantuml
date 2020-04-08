@@ -25,12 +25,13 @@ title __CONFIG's Class Diagram__\n
       class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.AuthorizationServerConfiguration {
           - authenticationManager : AuthenticationManager
           - passwordEncoder : PasswordEncoder
-          - tokenStore : TokenStore
           - tonrRedirectUri : String
           - userApprovalHandler : UserApprovalHandler
+          + accessTokenConverter()
           + configure()
           + configure()
           + configure()
+          + tokenServices()
           + tokenStore()
       }
     }
@@ -40,8 +41,11 @@ title __CONFIG's Class Diagram__\n
   namespace org.springframework.security.oauth.examples.sparklr {
     namespace config {
       class org.springframework.security.oauth.examples.sparklr.config.OAuth2ServerConfig.ResourceServerConfiguration {
+          + accessTokenConverter()
           + configure()
           + configure()
+          + tokenServices()
+          + tokenStore()
       }
     }
   }

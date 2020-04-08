@@ -24,6 +24,7 @@ public class OAuth2ExceptionHandler {
     @ExceptionHandler(value =OAuth2Exception.class)
     protected ResponseEntity handleConflict(OAuth2Exception ex, WebRequest request) {
         System.out.println("*********2*************");
+        System.out.println(ex);
         String bodyOfResponse = "This should be application specific";
         return ResponseEntity.ok(null);
     }

@@ -1,6 +1,39 @@
 @startuml
 
 title __MVC's Class Diagram__\n
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.AccessConfirmationController {
+          - approvalStore : ApprovalStore
+          - clientDetailsService : ClientDetailsService
+          + getAccessConfirmation()
+          + handleError()
+          + setApprovalStore()
+          + setClientDetailsService()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.AdminController {
+          - tokenServices : ConsumerTokenServices
+          - tokenStore : TokenStore
+          + listTokensForClient()
+          + listTokensForUser()
+          + revokeToken()
+          + setTokenServices()
+          + setTokenStore()
+          + setUserApprovalHandler()
+          + startCaching()
+          + stopCaching()
+          - checkResourceOwner()
+          - enhance()
+      }
+    }
+  }
   
 
   namespace org.springframework.security.oauth.examples.sparklr {
@@ -11,10 +44,50 @@ title __MVC's Class Diagram__\n
       }
     }
   }
-
   
 
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.PhotoController {
+          + getJsonPhotos()
+          + getPhoto()
+          + getPhotoService()
+          + getTrustedClientMessage()
+          + getTrustedUserMessage()
+          + getXmlPhotos()
+          + setPhotoService()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.PhotoServiceUserController {
+          + getPhotoServiceUser()
+      }
+    }
+  }
+  
+
+  namespace org.springframework.security.oauth.examples.sparklr {
+    namespace mvc {
+      class org.springframework.security.oauth.examples.sparklr.mvc.UserController {
+          - objectMapper : ObjectMapper
+          - passwordEncoder : PasswordEncoder
+          + getUser()
+          + getUserOAuth()
+          + register()
+          + updateUser()
+      }
+    }
+  }
+  
+
+  org.springframework.security.oauth.examples.sparklr.mvc.AdminController o-- org.springframework.security.oauth.examples.sparklr.oauth.SparklrUserApprovalHandler : userApprovalHandler
   org.springframework.security.oauth.examples.sparklr.mvc.ClientController o-- org.springframework.security.oauth.examples.sparklr.repository.ClientRepository : clientRepository
+  org.springframework.security.oauth.examples.sparklr.mvc.PhotoController o-- org.springframework.security.oauth.examples.sparklr.PhotoService : photoService
+  org.springframework.security.oauth.examples.sparklr.mvc.UserController o-- org.springframework.security.oauth.examples.sparklr.repository.UserRepository : userRepository
 
 
 right footer

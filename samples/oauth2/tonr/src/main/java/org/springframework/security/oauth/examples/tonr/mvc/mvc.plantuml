@@ -1,44 +1,20 @@
 @startuml
 
 title __MVC's Class Diagram__\n
-
-  namespace org.springframework.security.oauth.examples.tonr {
-    namespace mvc {
-      class org.springframework.security.oauth.examples.tonr.mvc.FacebookController {
-          - facebookRestTemplate : RestOperations
-          + photos()
-          + setFacebookRestTemplate()
-      }
-    }
-  }
   
 
   namespace org.springframework.security.oauth.examples.tonr {
     namespace mvc {
       class org.springframework.security.oauth.examples.tonr.mvc.SparklrController {
-          + photo()
-          + photos()
+          + user()
           + setSparklrService()
-          + trusted()
       }
     }
   }
-  
 
-  namespace org.springframework.security.oauth.examples.tonr {
-    namespace mvc {
-      class org.springframework.security.oauth.examples.tonr.mvc.SparklrRedirectController {
-          + photo()
-          + photos()
-          + setSparklrService()
-          + trigger()
-      }
-    }
-  }
   
 
   org.springframework.security.oauth.examples.tonr.mvc.SparklrController o-- org.springframework.security.oauth.examples.tonr.SparklrService : sparklrService
-  org.springframework.security.oauth.examples.tonr.mvc.SparklrRedirectController o-- org.springframework.security.oauth.examples.tonr.SparklrService : sparklrService
 
 
 right footer

@@ -92,7 +92,7 @@ public class OAuth2ServerConfig {
 				.requestMatchers().antMatchers("/photos/**", "/oauth/users/**", "/oauth/clients/**","/me","/user")
 			.and()
 				.authorizeRequests()
-					.antMatchers("/user").access("#oauth2.hasScope('read')")
+					.antMatchers("/user").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))")
 					.antMatchers("/me").access("#oauth2.hasScope('read')")					
 					.antMatchers("/photos").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))")                                        
 					.antMatchers("/photos/trusted/**").access("#oauth2.hasScope('trust')")

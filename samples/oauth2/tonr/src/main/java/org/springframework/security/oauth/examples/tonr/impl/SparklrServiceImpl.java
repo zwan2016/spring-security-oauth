@@ -26,6 +26,8 @@ public class SparklrServiceImpl implements SparklrService {
 		String userJson = sparklrRestTemplate.getForObject(URI.create(sparklrUserURL), String.class);
 		OAuth2RestTemplate o = (OAuth2RestTemplate)sparklrRestTemplate;
 		JsonObject jsonObject = new JsonParser().parse(userJson).getAsJsonObject();
+		System.out.println(o.getAccessToken());
+		System.out.println(o.getOAuth2ClientContext());
 		return jsonObject;
 	}
 

@@ -11,7 +11,7 @@ title __TONR's Class Diagram__\n
 
   namespace org.springframework.security.oauth.examples.tonr {
     interface org.springframework.security.oauth.examples.tonr.SparklrService {
-        {abstract} + getSparklrPhotoIds()
+        {abstract} + getSparklrUser()
         {abstract} + getTrustedMessage()
         {abstract} + loadSparklrPhoto()
     }

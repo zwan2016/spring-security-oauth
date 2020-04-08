@@ -5,19 +5,11 @@ title __IMPL's Class Diagram__\n
   namespace org.springframework.security.oauth.examples.tonr {
     namespace impl {
       class org.springframework.security.oauth.examples.tonr.impl.SparklrServiceImpl {
-          - sparklrPhotoListURL : String
-          - sparklrPhotoURLPattern : String
           - sparklrRestTemplate : RestOperations
-          - sparklrTrustedMessageURL : String
-          - trustedClientRestTemplate : RestOperations
-          + getSparklrPhotoIds()
-          + getTrustedMessage()
-          + loadSparklrPhoto()
-          + setSparklrPhotoListURL()
-          + setSparklrPhotoURLPattern()
+          - sparklrUserURL : String
+          + getSparklrUser()
           + setSparklrRestTemplate()
-          + setSparklrTrustedMessageURL()
-          + setTrustedClientRestTemplate()
+          + setSparklrUserURL()
       }
     }
   }

@@ -41,7 +41,7 @@ public class SparklrController {
 	private SparklrService sparklrService;
 
 	@RequestMapping("/sparklr/user")
-	public String photos(Model model) throws SparklrException, OAuth2Exception {
+	public String user(Model model) throws SparklrException, OAuth2Exception {
 		JsonObject user = sparklrService.getSparklrUser();
 		model.addAttribute("username", user.get("username").getAsString());
 		model.addAttribute("email", user.get("email").getAsString());
